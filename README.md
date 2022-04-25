@@ -13,7 +13,7 @@ Python script that builds yearly hEV leaderboards for batters.
 Download the repo using **Code > Download ZIP**, or clone the repo using git bash.
 
 ```bash
-git clone https://github.com/jefnic23/wCSW.git
+git clone https://github.com/jefnic23/hEV.git
 ```
 
 ## Setup
@@ -41,9 +41,14 @@ pip install -r requirements.txt
 Once everything is setup and dependencies are installed, run the script from the console and follow the prompts. 
 
 ```bash
-python wcsw.py
+python hev.py
 ```
 
 Files are saved to the `data` directory.
 
 Since the script relies on Statcast data, only MLB seasons after 2015 are valid. The script will ask which year you'd like to generate a leaderboard for, so if you want all Statcast seasons you'll have to run the script for each season.
+
+#### Related
+
+- [SBot](https://github.com/jefnic23/sbot)
+- [wCSW](https://github.com/jefnic23/wCSW)
