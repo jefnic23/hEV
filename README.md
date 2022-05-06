@@ -51,4 +51,4 @@ Since the script relies on Statcast data, only MLB seasons after 2015 are valid.
 #### Related
 
 - [SBot](https://github.com/jefnic23/sbot)
-- [wCSW](https://github.com/jefnic23/wCSW)
+- [wES](https://github.com/jefnic23/wES)
