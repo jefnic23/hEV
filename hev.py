@@ -47,12 +47,16 @@ if __name__ == '__main__':
         pbar.update(20)
 
         # clean up data and calculate hEV
-        df = df[['batter', 'launch_speed', 'launch_angle']].dropna()
-        df['hEV'] = df['launch_speed'] * np.cos(np.radians(df['launch_angle'] - 25))
+        df = df[['batter', 'launch_speed', 'launch_angle', 'woba_denom', 'bb_type']].fillna(0)
+        df['hEV'] = np.where(df['bb_type'] != 0, df['launch_speed'] * np.cos(np.radians(df['launch_angle'] - 25)), 0)
+        df['BBE'] = np.where(df['bb_type'] != 0, 1, 0)
         pbar.update(20)
 
         # groupby batters and get average hEV
-        df = df.groupby('batter').agg({'hEV': 'mean'})
+        df = df.groupby('batter').agg({'hEV': 'sum', 'BBE': 'sum', 'woba_denom': 'sum'})
+        df.rename(columns={'woba_denom': 'PA'}, inplace=True)
+        df['hEV/PA'] = df['hEV'] / df['PA']
+        df['hEV/BBE'] = df['hEV'] / df['BBE']
         df.index = df.index.map(name)
         pbar.update(20)
 
@@ -60,7 +64,7 @@ if __name__ == '__main__':
         if not os.path.exists('data'):
             os.mkdir('data')
 
-        df.to_csv(f"data/hEV_{year}.csv")
+        df[['BBE', 'PA', 'hEV/BBE', 'hEV/PA']].dropna().sort_values(by=['hEV/PA'], ascending=False).to_csv(f"data/hEV_{year}.csv")
         pbar.update(20)
 
         break
