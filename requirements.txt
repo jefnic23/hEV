@@ -1,7 +1,13 @@
 colorama==0.4.4
+et-xmlfile==1.1.0
+greenlet==1.1.2
 numpy==1.22.3
+openpyxl==3.0.10
 pandas==1.4.2
+psycopg2==2.9.3
 python-dateutil==2.8.2
+python-dotenv==0.20.0
 pytz==2022.1
 six==1.16.0
+SQLAlchemy==1.4.40
 tqdm==4.64.0

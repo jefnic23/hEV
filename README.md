@@ -5,8 +5,8 @@ Python script that builds yearly hEV leaderboards for batters.
 ## Requirements
 
 - Python 3.X
-- Yearly Statcast data (which you can get using [this script](https://github.com/jefnic23/baseball_savant_scraper))
-  - If you already have Statcast data you will need to make sure it's saved with the format `../baseball_savant/data/savant_{year}`, otherwise you'll have to edit the code at line 45 of `hev.py`
+- PostgreSQL
+- Statcast data (which you can get using [this script](https://github.com/jefnic23/baseball_savant_scraper))
 
 ## Installation
 
@@ -38,17 +38,33 @@ pip install -r requirements.txt
 
 ## Usage
 
-Once everything is setup and dependencies are installed, run the script from the console and follow the prompts. 
+Once everything is setup and dependencies are installed, create a ```.env``` file in the root directory.
+
+```bash
+type NUL > .env
+```
+
+Open the file in a text editor and copy these five variables, then assign them the appropriate value (make sure to enter the values between the quotation marks).
+
+```
+USER=''
+PSWD=''
+HOST=''
+PORT=''
+NAME=''
+```
+
+Finally, run the script from the console.
 
 ```bash
 python hev.py
 ```
 
-Files are saved to the `data` directory.
+The output is saved to the data directory in .xlsx format.
 
-Since the script relies on Statcast data, only MLB seasons after 2015 are valid. The script will ask which year you'd like to generate a leaderboard for, so if you want all Statcast seasons you'll have to run the script for each season.
+Since the script relies on Statcast data, only MLB seasons after 2015 are valid. The script will check the database for which seasons are available and generate a spreadsheet with tabs for each season.
 
 #### Related
 
-- [SBot](https://github.com/jefnic23/sbot)
 - [wES](https://github.com/jefnic23/wES)
+- [SBot](https://github.com/jefnic23/sbot)
