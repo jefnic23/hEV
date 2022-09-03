@@ -1,14 +1,15 @@
-from datetime import datetime
+import os
+import warnings
+
+import numpy as np
+import pandas as pd
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from tqdm import tqdm
-import pandas as pd
-import numpy as np
-import warnings
-import os
 
 
 def createEngine():
+    '''creates database connection'''
     load_dotenv()
     USER = os.getenv('USER')
     PSWD = os.getenv('PSWD')
@@ -19,9 +20,7 @@ def createEngine():
 
 
 def name(mlbam):
-    '''
-    map mlb ids to name
-    '''
+    '''map mlb ids to name'''
     try:
         return lookup.loc[mlbam]['name']
     except:
@@ -38,7 +37,7 @@ if __name__ == '__main__':
     if not os.path.exists('data'):
         os.mkdir('data')
 
-    # get player id data and read into a pandas dataframe
+    # get player id data
     url            = "https://raw.githubusercontent.com/chadwickbureau/register/master/data/people.csv"
     lookup         = pd.read_csv(url, index_col="key_mlbam")
     lookup['name'] = lookup['name_first'] + ' ' + lookup['name_last']
@@ -54,7 +53,7 @@ if __name__ == '__main__':
         'bb_type'
     ]
 
-    # get savant data from postgres and read into pandas dataframe
+    # get savant data from postgres
     engine = createEngine()
     df     = pd.read_sql('baseball_savant', engine, columns=columns)
     pbar.update(1)
