@@ -31,17 +31,20 @@ if __name__ == '__main__':
     warnings.filterwarnings('ignore')
 
     # initialize progress bar
-    pbar = tqdm(total=4, position=0, desc="Overall")
+    pbar = tqdm(total=19, position=0, desc="Overall")
 
     # make directory to house leaderboards
     if not os.path.exists('data'):
         os.mkdir('data')
 
     # get player id data
-    url            = "https://raw.githubusercontent.com/chadwickbureau/register/master/data/people.csv"
-    lookup         = pd.read_csv(url, index_col="key_mlbam")
+    lookup = []
+    for key in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f']:
+        url = f"https://raw.githubusercontent.com/chadwickbureau/register/master/data/people-{key}.csv"
+        lookup.append(pd.read_csv(url, index_col="key_mlbam"))
+        pbar.update(1)
+    lookup = pd.concat(lookup)
     lookup['name'] = lookup['name_first'] + ' ' + lookup['name_last']
-    pbar.update(1)
 
     # select necessary columns from database only
     columns = [
